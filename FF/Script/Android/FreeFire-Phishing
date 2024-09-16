@@ -26,12 +26,12 @@ Reset="\033[0m"
 
 
 
-version="1.2.1" 
+version="1.0.1" 
 
 # chacking update 
 check_update() {
     echo -ne "\n${Yellow}[${Green}+${Yellow}] ${Green}Checking for update: "
-    local release_url='https://raw.githubusercontent.com/CYB3RKING/RDX_CRACK/main/version.txt'
+    local release_url='https://raw.githubusercontent.com/CYB3RKING/FreeFire-Phishing/main/update.txt'
     local new_version
     new_version=$(curl -s "${release_url}")
     
